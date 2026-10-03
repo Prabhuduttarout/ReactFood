@@ -1,0 +1,17 @@
+{
+  "name": "2.react-food",
+  "version": "1.0.0",
+  "description": "\"Food Ordering App.\"",
+  "repository": {
+    "type": "git",
+    "url": "\"https://github.com/Prabhuduttarout/ReactFood.git\""
+  },
+  "license": "ISC",
+  "author": "\"Prabhudutta\"",
+  "type": "commonjs",
+  "scripts": {
+    "start":"parcel index.html",
+    "build":"parcel build index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
