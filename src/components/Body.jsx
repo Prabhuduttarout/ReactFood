@@ -36,7 +36,7 @@ const Body = () => {
 
   // ! Fetch Top LIsted Resturant
   const fetchTopResList = () => {
-    // console.log(resturantList);
+    console.log(resturantList);
 
     const topResturant = filterResList.filter(
       (resturant) => resturant?.info.avgRating >= 4.3,
@@ -91,7 +91,7 @@ const Body = () => {
         {filterResList.length === 0
           ? Array(9)
               .fill(null)
-              .map((_, i) => <Shimmer key={i} />)
+              .map((_, i) => <Shimmer key={i} cardLayout="res-card" />)
           : filterResList.map((resturant) => (
               <ResturantCard
                 key={resturant?.info?.id}

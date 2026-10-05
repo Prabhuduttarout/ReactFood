@@ -1,6 +1,6 @@
-function Shimmer() {
+function Shimmer({ cardLayout }) {
   return (
-    <div className="shimmer-card res-card">
+    <div className={`shimmer-card ${cardLayout}`}>
       <div className="res-logo" />
       <div className="card-body">
         <div></div>
