@@ -8,6 +8,11 @@
     - Serach
     - Resturant Container
     - Resturant Card
+        - Image
+        - Name of resturant
+        - Star Rating
+        - Cusine
+        - Delivery Time
 # => Footer
     - Copyright
     - Links
