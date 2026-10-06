@@ -1,21 +1,13 @@
-import { useEffect, useState } from "react";
-import { CDN_URL, MENU_URL } from "../utils/constant";
+import { CDN_URL } from "../utils/constant";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router";
+import useResturantInfo from "../hooks/useResturantInfo";
 
 const ResturantMenu = () => {
-  const [resturantInfo, setSesturantInfo] = useState(null);
   const { resId } = useParams();
-  useEffect(() => {
-    fetchResInfo();
-  }, []);
 
-  const fetchResInfo = async () => {
-    const response = await fetch(MENU_URL + resId);
-
-    const data = await response.json();
-    setSesturantInfo(data);
-  };
+  // Fetch Data Logic inside Custom Hook
+  const resturantInfo = useResturantInfo(resId);
 
   if (resturantInfo === null)
     return (
