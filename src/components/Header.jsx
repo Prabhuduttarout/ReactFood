@@ -1,9 +1,13 @@
 import { NavLink } from "react-router";
 import { LOGO_URL } from "../utils/constant";
 import useOnlineStatus from "../hooks/useOnlineStatus";
+import { useContext } from "react";
+import UserContext from "../utils/UserContext";
 
 // @ Header
 const Header = () => {
+  // Getting Context Value
+  const { loggedInUser } = useContext(UserContext);
   const online = useOnlineStatus();
   return (
     <div className="header">
@@ -26,6 +30,9 @@ const Header = () => {
             <NavLink to="/grocery">Grocery App</NavLink>
           </li>
           <li>Cart</li>
+          <li>
+            User:<b>{loggedInUser}</b>
+          </li>
         </ul>
       </div>
     </div>

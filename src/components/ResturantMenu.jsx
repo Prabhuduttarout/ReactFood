@@ -1,15 +1,20 @@
-import { CDN_URL } from "../utils/constant";
+import { useState } from "react";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router";
 import useResturantInfo from "../hooks/useResturantInfo";
+import ResturantCategory from "./ResturantCategory";
 
 const ResturantMenu = () => {
   const { resId } = useParams();
 
   // Fetch Data Logic inside Custom Hook
-  const resturantInfo = useResturantInfo(resId);
+  const { resInfo, isLoading } = useResturantInfo(resId);
+  // console.log(resInfo);
 
-  if (resturantInfo === null)
+  // State for handel the show/hide acoordian
+  const [expandAccIndx, setExpandAccIndx] = useState(0);
+
+  if (isLoading)
     return (
       <div className="res-menu-container">
         <div className="menu-list-container">
@@ -21,7 +26,7 @@ const ResturantMenu = () => {
         </div>
       </div>
     );
-  console.log(resturantInfo);
+
   const {
     name,
     cuisines,
@@ -30,13 +35,17 @@ const ResturantMenu = () => {
     totalRatingsString,
     sla,
     costForTwoMessage,
-  } = resturantInfo.data.cards[2].card.card.info;
+  } = resInfo.data.cards[2].card.card.info;
 
-  const { itemCards } =
-    resturantInfo.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards[1].card
-      .card;
-  console.log(itemCards);
+  const categoryTypeOfMenu =
+    resInfo.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards.filter(
+      (typeCard) => typeCard.card.card["@type"].includes(".ItemCategory"),
+    );
+  // console.log(categoryTypeOfMenu);
 
+  if (categoryTypeOfMenu.length === 0) {
+    return <h1>No Items Found !!</h1>;
+  }
   return (
     <div className="res-menu-container">
       <div className="res-hedaing">
@@ -55,26 +64,19 @@ const ResturantMenu = () => {
         </div>
         <p>{labels[1].message}</p>
       </div>
-      <div className="menu-list-container">
-        {itemCards.map((item) => {
-          const { id, name, price, itemAttribute, imageId } = item.card.info;
-          const vegClassifier = itemAttribute.vegClassifier;
+      <div className="accorian">
+        {categoryTypeOfMenu.map((category, index) => {
+          const { title, itemCards, categoryId } = category.card.card;
           return (
-            <div className="menu-items" key={id}>
-              <div className="menu-details">
-                <div
-                  className={`veg-nonveg-container ${vegClassifier === "VEG" ? "green" : "red"}`}
-                >
-                  {vegClassifier === "VEG" ? "🟢" : "🔴"}
-                </div>
-                <h4>{name}</h4>
-                <p className="menu-text">₹ {Math.floor(price / 100)}</p>
-                <p className="menu-text" style={{ color: "#6f6f6f" }}>
-                  {itemAttribute?.portionSize}
-                </p>
-              </div>
-              <img className="menu-img" src={CDN_URL + imageId} />
-            </div>
+            // => Controlled Component
+            <ResturantCategory
+              key={categoryId}
+              title={title}
+              itemIndex={index}
+              itemCards={itemCards}
+              isAccOpen={expandAccIndx === index ? true : false}
+              handelAccIndx={setExpandAccIndx}
+            />
           );
         })}
       </div>

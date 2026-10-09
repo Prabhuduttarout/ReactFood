@@ -34,3 +34,25 @@ const ResturantCard = (props) => {
 };
 
 export default ResturantCard;
+
+// => HOC
+export function withPromotedLabel(ResturantCard) {
+  return (props) => {
+    return (
+      <div style={{ position: "relative" }}>
+        <h4
+          style={{
+            position: "absolute",
+            padding: "2px 4px",
+            backgroundColor: "#000",
+            color: "#FFF",
+            borderBottomRightRadius: "5px",
+          }}
+        >
+          Promoted
+        </h4>
+        <ResturantCard {...props} />
+      </div>
+    );
+  };
+}

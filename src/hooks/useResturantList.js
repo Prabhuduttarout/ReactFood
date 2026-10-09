@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const useResturantList=()=>{
     const [resturantList, setResturantList] = useState([]);
-    const [filterResList, setFilterResList] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     
   //=> useEffect
@@ -23,13 +23,10 @@ const useResturantList=()=>{
       data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants,
     );
-    setFilterResList(
-      data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants,
-    );
+    setIsLoading(false)
   };
 
-  return [resturantList,filterResList];
+  return {resturantList,isLoading};
 }
 
 export default useResturantList;

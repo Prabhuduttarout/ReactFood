@@ -2,8 +2,13 @@ import { useEffect, useState } from "react";
 import { MENU_URL } from "../utils/constant";
 
 const useResturantInfo = (resId)=>{
+    console.log('fetch');
+    
     const [resInfo, setResInfo] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
+        console.log('call');
+        
         fetchResInfo();
     }, []);
 
@@ -12,8 +17,9 @@ const useResturantInfo = (resId)=>{
 
         const data = await response.json();
         setResInfo(data);
+        setIsLoading(false)
     };
-    return resInfo
+    return {resInfo,isLoading}
 }
 
 export default useResturantInfo
