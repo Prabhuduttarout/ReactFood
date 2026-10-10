@@ -3,11 +3,11 @@ import { useUserContext } from "../utils/UserContext";
 
 const Contact = () => {
   // get userContext data
-  const user = useUserContext();
+  const { loggedInUser } = useUserContext();
   return (
     <div>
       <h1>Contact</h1>
-      <h3>User:{user}</h3>
+      <h3>User:{loggedInUser}</h3>
     </div>
   );
 };

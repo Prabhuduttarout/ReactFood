@@ -3,6 +3,7 @@ import { useState } from "react";
 import ResturantCard, { withPromotedLabel } from "./ResturantCard";
 import Shimmer from "./Shimmer";
 import useResturantList from "../hooks/useResturantList";
+import { useUserContext } from "../utils/UserContext";
 
 // @ Body
 const Body = () => {
@@ -22,10 +23,13 @@ const Body = () => {
     return matchesSearch && matchesRating;
   });
 
-  console.log(resturantList);
+  // console.log(resturantList);
 
   //=> HOC
   const ResCardWithLabel = withPromotedLabel(ResturantCard);
+
+  // get userContext data
+  const { loggedInUser, setUserName } = useUserContext();
 
   // => Loading State
   if (isLoading)
@@ -70,6 +74,17 @@ const Body = () => {
         >
           Reset
         </button>
+
+        <div>
+          <label htmlFor="name">User name : </label>
+          <input
+            type="text"
+            className="searchInput"
+            value={loggedInUser}
+            placeholder="User Name"
+            onChange={(e) => setUserName(e.target.value)}
+          />
+        </div>
       </div>
 
       <div className="res-container">

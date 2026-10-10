@@ -6,8 +6,8 @@ const UserContext = createContext({
 
 // Coustome hook 
 export function useUserContext(){
-    const{loggedInUser} = useContext(UserContext);
-    return loggedInUser;
+    const data = useContext(UserContext);
+    return data;
 }
 
 export default UserContext;
